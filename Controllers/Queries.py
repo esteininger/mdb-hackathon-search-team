@@ -17,7 +17,7 @@ def search():
     agg_pipeline = [
         {
             '$search': {
-                'index': 'default',
+                'index': 'synonyms',
                 'text': {
                     'query': query,
                     'path': path,
