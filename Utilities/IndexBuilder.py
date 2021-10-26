@@ -26,7 +26,7 @@ index_template = {
  """
 field_template  = { "type" : "string" }
 
-def buildIndex( datadic, template=index_template ):
+def buildIndex( indexName, datadic, template=index_template ):
 	# print( datadic )
 	# print( datadic.keys() )
 	indexdef = copy.deepcopy( template )
