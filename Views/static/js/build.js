@@ -2,26 +2,30 @@
 function initLoadDataButton() {
   $("#industrySelectionButton").click(function() {
     let industryValue = $('#industrySelectionDropdown').val();
+    let loader = $('#loader');
+
+    loader.html('<img src="../static/img/logo_title.png"/>')
 
     $.ajax({
       'url': `/ingest?industry=${industryValue}`,
       'method': "POST"
     }).done(function(data) {
-
+      console.log(data)
       // aaron sample json
-      let dataDictionary = [
-        {
-          'fieldIdentifier': "cardholderRewardCaps1",
-          'addToSearchIndex': false,
-          'dataType': 'UNSUPPORTED FOR NOW'
-        },
-        {
-          'fieldIdentifier': "cardholderRewardCaps2",
-          'addToSearchIndex': false,
-          'dataType': 'UNSUPPORTED FOR NOW'
-        }
-    ]
-      updateDataDictionary(dataDictionary)
+    //   let dataDictionary = [
+    //     {
+    //       'fieldIdentifier': "cardholderRewardCaps1",
+    //       'addToSearchIndex': false,
+    //       'dataType': 'UNSUPPORTED FOR NOW'
+    //     },
+    //     {
+    //       'fieldIdentifier': "cardholderRewardCaps2",
+    //       'addToSearchIndex': false,
+    //       'dataType': 'UNSUPPORTED FOR NOW'
+    //     }
+    // ]
+      updateDataDictionary(data)
+      loader.html('');
     })
   });
 }
@@ -64,11 +68,12 @@ function initBuildIndexButton(){
 
     // send to server
     $.ajax({
-      'url': "/index",
-      'method': "POST",
-      'dataType': "json",
-      'data': dataDictionary,
-      'contentType': "application/json"
+      "url": `/index-creation?industry=${$('#industrySelectionDropdown').val()}`,
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "data": JSON.stringify(dataDictionary)
     }).done(function(data) {
       console.log(data)
     })
