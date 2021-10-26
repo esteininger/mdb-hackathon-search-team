@@ -4,14 +4,14 @@ from Utilities.IndexBuilder import buildIndex
 
 mod = Blueprint('index_routes', __name__)
 
-@mod.route('/index', methods=['POST', 'GET'])
-def index():
+@mod.route('/index-creation', methods=['POST', 'GET'])
+def index_creation():
     # update index
     if request.method == 'POST':
         data_schema = request.get_json()
-        print(data_schema)
-        # # i = buildIndex(indexName, data_schema)
-        # # print(i)
+        indexName = request.args.get('industry', default=None, type=str)
+        i = buildIndex(indexName, data_schema)
+        print(i)
         return 'ok'
 
     #
