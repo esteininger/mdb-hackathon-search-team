@@ -92,8 +92,9 @@ def get_data_type(value):
         simplified_type = "UNSUPPORTED"
     return simplified_type
 
-def get_schemas_set(sample_size):
-    sample_data = get_sample_data(db.bankingRewards_sampleData, sample_size)
+
+def get_schemas_set(collection=db.bankingRewards_sampleData, sample_size=10):
+    sample_data = get_sample_data(collection, sample_size)
     schemas_top_level = get_top_level_schemas(sample_data)
     schemas_second_level = get_second_level_schemas(sample_data)
     schemas = schemas_top_level + schemas_second_level
