@@ -3,11 +3,12 @@ import random
 from config import db
 from Models.introspect import get_schemas_set
 
-schemas = get_schemas_set(db.data)
+schemas = get_schemas_set(db.config)
 # print(schemas)
 
 def get_sample_schemas(schemas):
-    schemas = random.sample(schemas, 2)
+    # schemas = random.sample(schemas, 2)
+    #
     project = {"_id": 0}
     queries = []
     for schema in schemas:

@@ -20,7 +20,7 @@ def index():
         print(i)
         createAtlasSearchIndex( i )
         db.config.delete_many({})
-        db.config.insert(i)
+        db.config.insert(data_schema)
         return 'ok'
 
 def createAtlasSearchIndex( index ):
