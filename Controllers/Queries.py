@@ -1,5 +1,7 @@
-from flask import request, Blueprint, render_template, make_response, redirect
+from flask import request, Blueprint, render_template, make_response, redirect, jsonify
 from Models.ingest import ingest
+from Models.introspect import get_schemas_set 
+from config import db
 
 mod = Blueprint('query_routes', __name__)
 
@@ -13,8 +15,6 @@ def ingestPost():
     # This is ideally how we'd do this where the user can specify the custom data source url but for now we are hardcoding via dropdown
     # Grab the custom URL for the data source
     # datasource = request.args.get('datasource', default=None, type=str)
-    # Each of our demos need to have it's own namespace to prevent collision
-    # namespace = request.args.get('namespace', default=None, type=str)
 
     # For now, we are just going to have a drop down for industry, e.g. banking
     industry = request.args.get('industry', default=None, type=str)
@@ -36,7 +36,7 @@ def ingestPost():
     ingest.load(datasource)
 
     # After loading data, now we need to do the data inspection
-    return "true"
+    return jsonify(get_schemas_set(db.data, 10))
 
 @mod.route('/synonyms', methods=['GET'])
 def synonyms():
