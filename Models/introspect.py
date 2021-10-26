@@ -102,19 +102,5 @@ def get_schemas_set(collection=db.bankingRewards_sampleData, sample_size=10):
     unique_schemas = uniquify(schemas)
     return unique_schemas
 
-schemas = get_schemas_set(collection=db.bankingRewards_sampleData, sample_size=100)
-pp.pprint(schemas)
-# print("getting data sample")
-# sample_data = get_sample_data(db.bankingRewards_sampleData, 10)
-#
-# print("inspecting schema top level")
-# schemas_top_level = get_top_level_schemas(sample_data)
-#
-# print("inspecting schema second level")
-# schemas_second_level = get_second_level_schemas(sample_data)
-#
-# schemas = schemas_top_level + schemas_second_level
-#
-# print("Making unique")
-# unique_schemas = uniquify(schemas)
-# pp.pprint(unique_schemas)
+# schemas = get_schemas_set(collection=db.bankingRewards_sampleData, sample_size=100)
+# pp.pprint(schemas)
