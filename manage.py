@@ -1,6 +1,6 @@
 from flask import Flask
 from config import app_config, mongo_config
-from Controllers import PageRoutes, ErrorRoutes
+from Controllers import Queries, PageRoutes, ErrorRoutes
 import os
 
 
@@ -14,11 +14,12 @@ app.template_folder = app_config['ROOT_PATH'].split('Controllers')[0] + '/Views/
 
 # blueprints init
 blueprints = [
-    PageRoutes.mod
+    PageRoutes.mod, 
+    Queries.mod
 ]
 for bp in blueprints:
     app.register_blueprint(bp)
 
 
 if __name__ == '__main__':
-    app.run(host="localhost", port=5010, debug=True)
+    app.run(host="0.0.0.0", port=5010, debug=True)
