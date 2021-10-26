@@ -4,8 +4,8 @@ import pprint as pp
 from config import db
 import datetime
 
-def get_sample_data(collection):
-    pipeline = [{"$sample": {"size": 1}}]
+def get_sample_data(collection, sample_size):
+    pipeline = [{"$sample": {"size": sample_size}}]
     cursor = collection.aggregate(pipeline)
     data_sample = []
     for doc in cursor:
@@ -92,9 +92,17 @@ def get_data_type(value):
         simplified_type = "UNSUPPORTED"
     return simplified_type
 
+def get_schemas_set(schemas):
+    sample_data = get_sample_data(db.bankingRewards_sampleData, 10)
+    schemas_top_level = get_top_level_schemas(sample_data)
+    schemas_second_level = get_second_level_schemas(sample_data)
+    schemas = schemas_top_level + schemas_second_level
+    unique_schemas = uniquify(schemas)
+    return unique_schemas
+
 
 # print("getting data sample")
-# sample_data = get_sample_data(db.bankingRewards_sampleData)
+# sample_data = get_sample_data(db.bankingRewards_sampleData, 10)
 #
 # print("inspecting schema top level")
 # schemas_top_level = get_top_level_schemas(sample_data)
