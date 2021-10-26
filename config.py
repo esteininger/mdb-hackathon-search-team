@@ -15,4 +15,4 @@ mongo_config = {
 }
 
 client = pymongo.MongoClient("mongodb+srv://cinnamon:cinnamon@sa-shared-demo.lbvlu.mongodb.net/cinnamonSynonyms?retryWrites=true&w=majority")
-db = client.cinnamonSynonyms
+db = client.cinnamon
