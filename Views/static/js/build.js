@@ -35,7 +35,7 @@ function updateDataDictionary(dataDictionary) {
   dataDictionary.forEach(function(obj) {
     // console.log(obj)
     html += `<div class="form-check">
-      <input class="form-check-input dataDictionaryCheckbox" type="checkbox" value="${obj['fieldIdentifier']}" id="${obj['fieldIdentifier']}">
+      <input class="form-check-input dataDictionaryCheckbox" type="checkbox" value="${obj['fieldIdentifier']}" id="${obj['fieldIdentifier']}" data-type=${obj['dataType']}>
       <label class="form-check-label" for="${obj['fieldIdentifier']}">
         ${obj['fieldIdentifier']}
       </label>
@@ -61,7 +61,7 @@ function initBuildIndexButton(){
       let d = {
         'fieldIdentifier': this.value,
         'addToSearchIndex': this.checked,
-        'dataType': 'UNSUPPORTED FOR NOW'
+        'dataType': $(this).data('type')
       }
       dataDictionary.push(d)
     })
