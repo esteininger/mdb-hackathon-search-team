@@ -1,7 +1,7 @@
 Flask
-<<<<<<< HEAD
+#<<<<<<< HEAD
 pandas
-=======
+#=======
 pymongo
 dnspython
->>>>>>> 21c39bc526bfb62c23ecf39e844be03f7fefbfb9
+#>>>>>>> 21c39bc526bfb62c23ecf39e844be03f7fefbfb9
