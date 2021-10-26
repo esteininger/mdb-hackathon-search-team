@@ -8,12 +8,11 @@ import json
 mod = Blueprint('index_routes', __name__)
 
 
-@mod.route('/index-routes', methods=['POST', 'GET'])
+@mod.route('/index-creation', methods=['POST', 'GET'])
 def index():
     # update index here
     if request.method == 'POST':
         data_schema = request.get_json()
-        print(data_schema)
         indexName = request.args.get('indexName', default=None, type=str)
         i = buildIndex(indexName, data_schema)
         print(i)
@@ -24,15 +23,15 @@ def createAtlasSearchIndex( index ):
     url = "https://cloud.mongodb.com/api/atlas/v1.0/groups/5e8f8268d896f55ac04969a1/clusters/SA-SHARED-DEMO/fts/indexes?pretty=true"
 
     # payload = "{  \"collectionName\": \"calls\",   \"database\": \"rochaDB\",  \"mappings\": {  \"dynamic\": false, \"fields\": { \"sentence\": {\"type\":\"string\"}  }}, \"name\": \"charlieIndex02\", \"synonyms\": [ { \"name\": \"mySynonyms\", \"source\": { \"collection\": \"rocha_synonyms\" }, \"analyzer\": \"lucene.standard\"  } ]  }"
-    # payload = {  
-    #     "collectionName": "calls",   
-    #     "database": "rochaDB",  
-    #     "mappings": {  "dynamic": False, 
-    #     "fields": { "sentence": {"type":"string"}  }}, 
-    #     "name": "charlieIndex03", 
-    #     "synonyms": [ { "name": "mySynonyms", 
-    #                     "source": { "collection": "rocha_synonyms" }, 
-    #                     "analyzer": "lucene.standard"  } ]  
+    # payload = {
+    #     "collectionName": "calls",
+    #     "database": "rochaDB",
+    #     "mappings": {  "dynamic": False,
+    #     "fields": { "sentence": {"type":"string"}  }},
+    #     "name": "charlieIndex03",
+    #     "synonyms": [ { "name": "mySynonyms",
+    #                     "source": { "collection": "rocha_synonyms" },
+    #                     "analyzer": "lucene.standard"  } ]
     # }
     test = [
 		{'addToSearchIndex': True, 'dataType': 'string', 'fieldIdentifier': 'versionId'},
@@ -67,15 +66,15 @@ def main():
     indexName = "charlieIndex04"
 
     # payload = "{  \"collectionName\": \"calls\",   \"database\": \"rochaDB\",  \"mappings\": {  \"dynamic\": false, \"fields\": { \"sentence\": {\"type\":\"string\"}  }}, \"name\": \"charlieIndex02\", \"synonyms\": [ { \"name\": \"mySynonyms\", \"source\": { \"collection\": \"rocha_synonyms\" }, \"analyzer\": \"lucene.standard\"  } ]  }"
-    # payload = {  
-    #     "collectionName": "calls",   
-    #     "database": "rochaDB",  
-    #     "mappings": {  "dynamic": False, 
-    #     "fields": { "sentence": {"type":"string"}  }}, 
-    #     "name": "charlieIndex03", 
-    #     "synonyms": [ { "name": "mySynonyms", 
-    #                     "source": { "collection": "rocha_synonyms" }, 
-    #                     "analyzer": "lucene.standard"  } ]  
+    # payload = {
+    #     "collectionName": "calls",
+    #     "database": "rochaDB",
+    #     "mappings": {  "dynamic": False,
+    #     "fields": { "sentence": {"type":"string"}  }},
+    #     "name": "charlieIndex03",
+    #     "synonyms": [ { "name": "mySynonyms",
+    #                     "source": { "collection": "rocha_synonyms" },
+    #                     "analyzer": "lucene.standard"  } ]
     # }
     test = [
 		{'addToSearchIndex': True, 'dataType': 'string', 'fieldIdentifier': 'versionId'},
