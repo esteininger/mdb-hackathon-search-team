@@ -1,10 +1,15 @@
-from flask import Blueprint, render_template, make_response, redirect
-from ingest
+from flask import request, Blueprint, render_template, make_response, redirect
+from Models.ingest import ingest
 
 mod = Blueprint('query_routes', __name__)
 
-@app.route('/ingest', methods=['POST'])
-def ingest():
+@mod.route('/ingest', methods=['GET'])
+def ingestTest():
+    print("Testing")
+    return "Passed"
+
+@mod.route('/ingest', methods=['POST'])
+def ingestPost():
     # This is ideally how we'd do this where the user can specify the custom data source url but for now we are hardcoding via dropdown
     # Grab the custom URL for the data source
     # datasource = request.args.get('datasource', default=None, type=str)
@@ -31,13 +36,13 @@ def ingest():
         datasource = "https://data.cityofnewyork.us/api/views/825b-niea/rows.json"
 
     ingest.test(datasource, namespace)
-    pass
+    return "true"
 
-@app.route('/synonyms', methods=['GET'])
+@mod.route('/synonyms', methods=['GET'])
 def synonyms():
-    pass
+    return "true"
 
-@app.route('/search', methods=['GET'])
+@mod.route('/search', methods=['GET'])
 def search():
     query = request.args.get('query', default=None, type=str)
     path = request.args.get('path', default='plot', type=str)
