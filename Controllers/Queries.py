@@ -20,22 +20,22 @@ def ingestPost():
     industry = request.args.get('industry', default=None, type=str)
     print('Industry: ', industry)
 
-    # Since we are only doing a drop down for industry so we'll default the namespace to industry
-    namespace = industry
-
     # Set the data source accordingly
     if industry == "banking":
-        datasource = "https://data.cityofnewyork.us/api/views/825b-niea/rows.json"
+        # This is Aaron's generated data with nested structures and such
+        # but he only cares about the first 2 levels of depth and not beyond that
+        datasource = "https://cinnamon-hackathon-gnbzi-etihf.mongodbstitch.com/bankingRewards_sampleData.json"
     elif industry == "healthcare":
         datasource = "https://data.cityofnewyork.us/api/views/825b-niea/rows.json"
-    elif industry == "ecommerce":
-        datasource = "https://data.cityofnewyork.us/api/views/825b-niea/rows.json"
+    elif industry == "education":
+        datasource = "https://data.cityofnewyork.us/api/views/f6s7-vytj/rows.csv?accessType=DOWNLOAD"
     else:
-        # Default to banking if all else fails
-        namespace = "banking"
-        datasource = "https://data.cityofnewyork.us/api/views/825b-niea/rows.json"
+        # Default to education
+        datasource = "https://cinnamon-hackathon-gnbzi-etihf.mongodbstitch.com/test.json"
 
-    ingest.test(datasource, namespace)
+    ingest.load(datasource)
+
+    # After loading data, now we need to do the data inspection
     return "true"
 
 @mod.route('/synonyms', methods=['GET'])
