@@ -81,6 +81,20 @@ function initBuildIndexButton(){
   });
 }
 
+function runSearchQuery(){
+  // search server
+  $.ajax({
+    "url": `/search`,
+    "method": "GET",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "data": JSON.stringify(dataDictionary)
+  }).done(function(data) {
+    console.log(data)
+  })
+}
+
 
 $(document).ready(function() {
   initLoadDataButton();
