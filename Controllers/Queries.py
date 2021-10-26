@@ -1,6 +1,6 @@
 from flask import request, Blueprint, render_template, make_response, redirect, jsonify
 from Models.ingest import ingest
-from Models.introspect import get_schemas_set 
+from Models.introspect import get_schemas_set
 from config import db
 
 mod = Blueprint('query_routes', __name__)
@@ -61,6 +61,6 @@ def search():
             }
         }
     ]
-    docs = list(collection.aggregate(agg_pipeline))
+    docs = list(db.data.aggregate(agg_pipeline))
     json_result = json_util.dumps({'docs': docs}, json_options=json_util.RELAXED_JSON_OPTIONS)
     return jsonify(json_result)
