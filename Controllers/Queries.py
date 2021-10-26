@@ -42,25 +42,71 @@ def ingestPost():
 def synonyms():
     return "true"
 
-@mod.route('/search', methods=['GET'])
-def search():
-    query = request.args.get('query', default=None, type=str)
-    path = request.args.get('path', default='plot', type=str)
-    synonym_collection = request.args.get('industry', default='finance', type=str)
+# @mod.route('/search', methods=['GET'])
+# def search():
+#     query = request.args.get('query', default=None, type=str)
+#     path = request.args.get('path', default='plot', type=str)
+#     synonym_collection = request.args.get('industry', default='finance', type=str)
+#
+#     agg_pipeline = [
+#         {
+#             '$search': {
+#                 'index': 'synonyms',
+#                 'text': {
+#                     'query': query,
+#                     'path': path,
+#                     "synonyms": synonym_collection
+#                 },
+#                 'highlight': { "path": path }
+#             }
+#         }
+#     ]
+#     docs = list(collection.aggregate(agg_pipeline))
+#     json_result = json_util.dumps({'docs': docs}, json_options=json_util.RELAXED_JSON_OPTIONS)
+#     return jsonify(json_result
+#
+#                    @ app.route('/search', methods=['GET'])
 
-    agg_pipeline = [
-        {
-            '$search': {
-                'index': 'synonyms',
-                'text': {
-                    'query': query,
-                    'path': path,
-                    "synonyms": synonym_collection
-                },
-                'highlight': { "path": path }
-            }
-        }
-    ]
-    docs = list(collection.aggregate(agg_pipeline))
-    json_result = json_util.dumps({'docs': docs}, json_options=json_util.RELAXED_JSON_OPTIONS)
-    return jsonify(json_result)
+    # def search():
+    #     query = request.args.get('query', default=None, type=str)
+    #     path = request.args.get('path', default='title', type=str)
+    #
+    #     agg_pipeline = [
+    #         {
+    #             '$search': {
+    #                 'term': {
+    #                     'query': query,
+    #                     'path': path,
+    #                     # fuzzy search
+    #                     # 'fuzzy': {
+    #                     #     'maxEdits': 2,
+    #                     #     'prefixLength': 0
+    #                     # }
+    #                 },
+    #                 # text highlighting
+    #                 'highlight': {"path": path}
+    #             }
+    #         }, {
+    #             '$project': {
+    #                 'document': "$$ROOT",
+    #                 'highlights': {"$meta": "searchHighlights"},
+    #                 # include score
+    #                 'score': {
+    #                     '$meta': 'searchScore'
+    #                 }
+    #             }
+    #         },
+    #         {
+    #             # skip items without a poster image url
+    #             '$match': {"document.poster": {'$ne': None}}
+    #         },
+    #         {
+    #             '$limit': 15
+    #         },
+    #         {
+    #             '$sort': {'score': -1}
+    #         }
+    #     ]
+    #     docs = list(collection.aggregate(agg_pipeline))
+    #     json_result = json_util.dumps({'docs': docs}, json_options=json_util.RELAXED_JSON_OPTIONS)
+    #     return jsonify(json_result)
