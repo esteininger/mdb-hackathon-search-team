@@ -5,8 +5,8 @@ index_template = {
     "collectionName": "data",   
     "database": "cinnamon",  
     "name": "<index-name>",
-    "analyzer": "Standard",
-    "searchAnalyzer": "Standard",
+    "analyzer": "lucene.standard",
+    "searchAnalyzer": "lucene.standard",
     "mappings": {
         "dynamic": False,
         "fields": {  }
@@ -17,7 +17,7 @@ index_template = {
             "source": {
                 "collection": "synonyms"
             },
-            "analyzer": "Standard"
+            "analyzer": "lucene.standard"
         }
     ]
 }
