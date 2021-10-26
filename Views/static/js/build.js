@@ -64,7 +64,7 @@ function initBuildIndexButton(){
 
     // send to server
     $.ajax({
-      'url': `/index`,
+      'url': "/index",
       'method': "POST",
       'dataType': "json",
       'data': dataDictionary,
@@ -72,6 +72,7 @@ function initBuildIndexButton(){
     }).done(function(data) {
       console.log(data)
     })
+
   });
 }
 
