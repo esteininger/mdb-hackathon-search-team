@@ -28,6 +28,19 @@ function initLoadDataButton() {
       loader.html('');
     })
   });
+
+  $("#addSynonymButton").click(function() {
+    console.log('add syn button click handler');
+    let originalValue = $('#original').val();
+    let synonymValue = $('#synonym').val();
+
+    $.ajax({
+      'url': `/synonym?original=${originalValue}&synonym=${synonymValue}`,
+      'method': "POST"
+    }).done(function(data) {
+      console.log(data)
+    })
+  });
 }
 
 function updateDataDictionary(dataDictionary) {
