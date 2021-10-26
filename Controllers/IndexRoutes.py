@@ -4,6 +4,7 @@ from Utilities.IndexBuilder import buildIndex
 import requests
 from requests.auth import HTTPDigestAuth
 import json
+from config import db
 
 mod = Blueprint('index_routes', __name__)
 
@@ -18,6 +19,8 @@ def index():
         i = buildIndex(indexName, data_schema)
         print(i)
         createAtlasSearchIndex( i )
+        db.config.delete_many({})
+        db.config.insert(i)
         return 'ok'
 
 def createAtlasSearchIndex( index ):
