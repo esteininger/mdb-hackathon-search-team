@@ -70,6 +70,7 @@ def get_second_level_schemas(data):
                                 schema['fieldIdentifier'] = label
                                 schema['dataType'] = value_type
                                 schema['addToSearchIndex'] = False
+                                schema['isArray'] = True
                                 if schema['dataType'] != "UNSUPPORTED":
                                     schemas.append(schema)
     return schemas
@@ -101,7 +102,8 @@ def get_schemas_set(collection=db.bankingRewards_sampleData, sample_size=10):
     unique_schemas = uniquify(schemas)
     return unique_schemas
 
-
+schemas = get_schemas_set(collection=db.bankingRewards_sampleData, sample_size=100)
+pp.pprint(schemas)
 # print("getting data sample")
 # sample_data = get_sample_data(db.bankingRewards_sampleData, 10)
 #
