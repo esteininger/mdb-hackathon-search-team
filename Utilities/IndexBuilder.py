@@ -24,30 +24,34 @@ index_template = {
    'dataType': 'STRING',
    'fieldIdentifier': 'versionId'} ]
  """
-field_template  = { "type" : "string" }
 
-def buildIndex( indexName, datadic, template=index_template ):
-	# print( datadic )
-	# print( datadic.keys() )
-	indexdef = copy.deepcopy( template )
+def staticMapping( datadic, target ):
 	for fieldDef in datadic:
 		if fieldDef["addToSearchIndex"] == False: continue
 		name = fieldDef["fieldIdentifier"]
 		type = fieldDef["dataType"]
 		print( name, "->", type )
-		field = { name : copy( field_template ) }
+		field = { name : { "type" : type } }
 		field[name]["type"] = type
-		indexdef["mappings"]["fields"][name] = field[name]
+		print( field )
+		target[name] = field[name]
+
+def buildIndex( indexName, datadic, template=index_template ):
+	# print( datadic )
+	# print( datadic.keys() )
+	indexdef = copy.deepcopy( template )
+	indexdef["name"] = indexName
+	staticMapping( datadic, indexdef["mappings"]["fields"] )
 	return indexdef
 
 def main():
     print("Hello World!")
     test = [
-		{'addToSearchIndex': False, 'dataType': 'string', 'fieldIdentifier': 'versionId'},
-		{'addToSearchIndex': False, 'dataType': 'string', 'fieldIdentifier': 'uniqueAggregatorId'},
-		{'addToSearchIndex': False, 'dataType': 'number', 'fieldIdentifier': 'uniquePartnerId'}
+		{'addToSearchIndex': True, 'dataType': 'string', 'fieldIdentifier': 'versionId'},
+		{'addToSearchIndex': True, 'dataType': 'string', 'fieldIdentifier': 'uniqueAggregatorId'},
+		{'addToSearchIndex': True, 'dataType': 'number', 'fieldIdentifier': 'uniquePartnerId'}
 	]
-    print( buildIndex( test )) 
+    print( buildIndex( "MyIndex", test )) 
 	
 
 
