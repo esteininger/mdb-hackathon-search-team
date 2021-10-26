@@ -2,6 +2,8 @@
 import copy
 
 index_template = {
+    "collectionName": "data",   
+    "database": "cinnamon",  
     "name": "<index-name>",
     "analyzer": "Standard",
     "searchAnalyzer": "Standard",
@@ -11,9 +13,9 @@ index_template = {
     },
     "synonyms": [
         {
-            "name": "default_synonyms",
+            "name": "synonyms",
             "source": {
-                "collection": "synonym_collection"
+                "collection": "synonyms"
             },
             "analyzer": "Standard"
         }
@@ -23,7 +25,7 @@ index_template = {
 [ {'addToSearchIndex': False,
    'dataType': 'STRING',
    'fieldIdentifier': 'versionId'} ]
- """
+"""
 
 def staticMapping( datadic, target ):
 	for fieldDef in datadic:
@@ -41,6 +43,7 @@ def buildIndex( indexName, datadic, template=index_template ):
 	# print( datadic.keys() )
 	indexdef = copy.deepcopy( template )
 	indexdef["name"] = indexName
+	print( "Index name set to: ", indexdef["name"] )
 	staticMapping( datadic, indexdef["mappings"]["fields"] )
 	return indexdef
 
