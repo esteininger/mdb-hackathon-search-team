@@ -14,7 +14,7 @@ def index():
     if request.method == 'POST':
         data_schema = request.get_json()
         indexName = request.args.get('indexName', default=None, type=str)
-	print( "Index Name parameter: ", indexName )
+        print( "Index Name parameter: ", indexName )
         i = buildIndex(indexName, data_schema)
         print(i)
         createAtlasSearchIndex( i )

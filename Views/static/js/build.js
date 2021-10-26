@@ -12,18 +12,18 @@ function initLoadDataButton() {
     }).done(function(data) {
       console.log(data)
       // aaron sample json
-    //   let dataDictionary = [
-    //     {
-    //       'fieldIdentifier': "cardholderRewardCaps1",
-    //       'addToSearchIndex': false,
-    //       'dataType': 'UNSUPPORTED FOR NOW'
-    //     },
-    //     {
-    //       'fieldIdentifier': "cardholderRewardCaps2",
-    //       'addToSearchIndex': false,
-    //       'dataType': 'UNSUPPORTED FOR NOW'
-    //     }
-    // ]
+      //   let dataDictionary = [
+      //     {
+      //       'fieldIdentifier': "cardholderRewardCaps1",
+      //       'addToSearchIndex': false,
+      //       'dataType': 'UNSUPPORTED FOR NOW'
+      //     },
+      //     {
+      //       'fieldIdentifier': "cardholderRewardCaps2",
+      //       'addToSearchIndex': false,
+      //       'dataType': 'UNSUPPORTED FOR NOW'
+      //     }
+      // ]
       updateDataDictionary(data)
       loader.html('');
     })
@@ -49,14 +49,14 @@ function updateDataDictionary(dataDictionary) {
 }
 
 
-function initBuildIndexButton(){
+function initBuildIndexButton() {
   $("#buildIndexButton").click(function() {
 
     var dataDictionary = [];
 
     var checkBoxes = $(".dataDictionaryCheckbox");
     checkBoxes.each(function() {
-      console.log( this.value + ":" + this.checked );
+      console.log(this.value + ":" + this.checked);
 
       let d = {
         'fieldIdentifier': this.value,
@@ -68,7 +68,7 @@ function initBuildIndexButton(){
 
     // send to server
     $.ajax({
-      "url": `/index-creation?industry=${$('#industrySelectionDropdown').val()}`,
+      "url": `/index-creation?indexName=${$('#industrySelectionDropdown').val()}`,
       "method": "POST",
       "headers": {
         "Content-Type": "application/json"
@@ -81,8 +81,12 @@ function initBuildIndexButton(){
   });
 }
 
-function runSearchQuery(){
+function runSearchQuery() {
   // search server
+  let searchPlaceholder = $('#search-results');
+
+  let html = ``;
+
   $.ajax({
     "url": `/search`,
     "method": "GET",
@@ -91,8 +95,18 @@ function runSearchQuery(){
     },
     "data": JSON.stringify(dataDictionary)
   }).done(function(data) {
-    console.log(data)
+    checkBoxes.each(function() {
+
+      html += `
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">Search results ofa  sample query.</p>
+        </div>
+      </div>
+    `
+    })
   })
+  searchPlaceholder.html(html)
 }
 
 
