@@ -5,6 +5,17 @@ from config import db
 
 mod = Blueprint('query_routes', __name__)
 
+@mod.route('/synonym', methods=['POST'])
+def synonymPost():
+    # This is where we add synonyms to the synonyms directory
+    original = request.args.get('original', default=None, type=str)
+    synonym = request.args.get('synonym', default=None, type=str)
+
+    # For the lack of a better place to put the logic, reuse the ingest model
+    ingest.addSynonym(original, synonym)
+
+    return "true"
+
 @mod.route('/ingest', methods=['GET'])
 def ingestTest():
     print("Testing")
@@ -26,7 +37,7 @@ def ingestPost():
         # but he only cares about the first 2 levels of depth and not beyond that
         datasource = "https://cinnamon-hackathon-gnbzi-etihf.mongodbstitch.com/bankingRewards_sampleData.json"
     elif industry == "healthcare":
-        datasource = "https://data.cityofnewyork.us/api/views/825b-niea/rows.json"
+        datasource = "https://data.lacity.org/api/views/ckya-qgys/rows.csv?accessType=DOWNLOAD"
     elif industry == "education":
         datasource = "https://data.cityofnewyork.us/api/views/f6s7-vytj/rows.csv?accessType=DOWNLOAD"
     else:

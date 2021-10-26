@@ -9,6 +9,19 @@ class ingest:
     # def __init__(self):
     #     self.base_url = ''
 
+    def addSynonym(original, synonym):
+        print("Add synonym now: ", original, ", " + synonym)
+ 
+        d = db.synonym.find_one({'input': original, 'mappingType': 'explicit'})
+        if d:
+             print("Synonym doc found. Append synonym")
+             d["synonyms"].append(synonym)
+             print(d["synonyms"])
+             db.synonym.update({'_id': d["_id"]}, {'$push': {'synonyms': synonym}})
+        else:
+             print("Synonym doc not found")
+             db.synonym.insert_one({"mappingType": "explicit", "input": [original], "synonyms": [synonym]})       
+
     def load(datasource):
         print("Ingest the data source now: ", datasource)
 
